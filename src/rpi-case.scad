@@ -9,11 +9,12 @@ h = 28;
 
 module case() {
 	// hole positions
-	p1 = [4 + 25.5, 2 + 2 + 18, 0];
+	p1 = [4 + 25.5, 4 + 18, 0];
 	p2 = [l - 4 - 5, w - 4 - 12.5, 0];
 
 	difference() {
 		cube([l, w, h]);
+		// interior
 		translate([2, 2, 2]) cube([l, w, h] - [4, 4, 4]);
 		// HDMI
 		translate([40.5, -1, 8]) cube([17.1, 4, 9]);
@@ -35,7 +36,7 @@ module case() {
 		translate(p1 + [0, 0, -1]) cylinder(d = 2.9, h = 4);
 		translate(p2 + [0, 0, -1]) cylinder(d = 2.9, h = 4);
 		// air vent (optional)
-		for (x = [40:10:80]) 
+		for (x = [40:10:80])
 			translate([x, 10, -1]) airhole();
 		for (x = [10:10:70])
 			translate([x, w - 25, -1]) airhole();
