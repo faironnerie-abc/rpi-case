@@ -30,6 +30,9 @@ module case() {
 			translate([x, 10, -1]) airhole();
 		for (x = [10:10:70])
 			translate([x, 39, -1]) airhole();
+		// fablab logo (optional)
+		translate([p1[0] + 5, (64 - 35) / 2, 25]) linear_extrude(height = 4) import("../img/fabcube.dxf");
+
 	}
 	// studs
 	translate(p1 + [0, 0, 2]) stud(6);
@@ -54,20 +57,20 @@ module airhole() {
 module floor() {
 	intersection() {
 		case();
-		translate([-1, -1, -1]) cube([93 + 2, 64 + 2, 8 + 1]);
+		translate([-1, -1, -1]) cube([93 + 2, 64 + 2, 9 + 1]);
 	}
 }
 
 module ceiling() {
 	difference() {
 		case();
-		translate([-1, -1, -1]) cube([93 + 2, 64 + 2, 8 + 1]);
+		translate([-1, -1, -1]) cube([93 + 2, 64 + 2, 9 + 1]);
 	}
 }
 
 module rpi_with_case() {
-	case();
-	color("Green") translate([4, 4, 8 + 1.6]) rpi();
+	% case();
+	translate([4, 4, 8 + 1.6]) rpi();
 }
 
 // case();
