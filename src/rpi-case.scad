@@ -9,8 +9,7 @@ h = 28;
 
 module case() {
 	// hole positions
-	p1 = [4 + 25.5, 4 + 18, 0];
-	p2 = [l - 4 - 5, w - 4 - 12.5, 0];
+	holepos = [[4 + 25.5, 4 + 18, 0], [l - 4 - 5, w - 4 - 12.5, 0]];
 
 	difference() {
 		cube([l, w, h]);
@@ -33,22 +32,23 @@ module case() {
 		// SD card
 		translate([-1, w - 29.8 - 14.5, 2]) cube([4, 29.8, 7.6]);
 		// screw holes
-		translate(p1 + [0, 0, -1]) cylinder(d = 2.9, h = 4);
-		translate(p2 + [0, 0, -1]) cylinder(d = 2.9, h = 4);
+		for (p = holepos)
+			translate(p + [0, 0, -1]) cylinder(d = 2.9, h = 4);
 		// air vent (optional)
 		for (x = [40:10:80])
 			translate([x, 10, -1]) airhole();
 		for (x = [10:10:70])
 			translate([x, w - 25, -1]) airhole();
 		// fablab logo
-		translate([p1[0] + 5, (w - 35) / 2, h - 3]) 
+		translate([holepos[0][0] + 5, (w - 36) / 2, h - 3]) 
 			linear_extrude(height = 4) import("../img/fabcube.dxf");
 	}
 	// studs
-	translate(p1 + [0, 0, 2]) stud(6);
-	translate(p2 + [0, 0, 2]) stud(6);
-	translate(p1 + [0, 0, 9.6]) stud(16.4);
-	translate(p2 + [0, 0, 9.6]) stud(16.4);
+	for (p = holepos) {
+		translate(p + [0, 0, 2]) stud(6);
+		translate(p + [0, 0, 9.6]) stud(16.4);
+	}
+
 }
 
 module stud(height) {
